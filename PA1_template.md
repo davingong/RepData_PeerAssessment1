@@ -74,7 +74,7 @@ print(meanmed)
 ## 1 37.3826      0
 ```
 
-Unsurprisingly, given the previous data, the median number of steps is 0.
+The mean number of steps is 37.38. Unsurprisingly, given the previous data, the median number of steps is 0.
 
 ## What is the average daily activity pattern?  
 ### 1. Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
@@ -109,6 +109,8 @@ dfSummary2$interval[dfSummary2$mean == max(dfSummary2$mean)]
 ## [1] 835
 ```
 
+It is the 835th interval.
+
 ## Imputing missing values 
 
 ### 1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
@@ -120,6 +122,8 @@ sum(!complete.cases(df))
 ```
 ## [1] 2304
 ```
+
+There are 2304 rows missing.
 
 ### 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc  
 

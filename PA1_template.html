@@ -416,7 +416,7 @@ meanmed &lt;- summarize(df, mean = mean(steps, na.rm = TRUE), median = median(st
 print(meanmed)</code></pre>
 <pre><code>##      mean median
 ## 1 37.3826      0</code></pre>
-<p>Unsurprisingly, given the previous data, the median number of steps is 0.</p>
+<p>The mean number of steps is 37.38. Unsurprisingly, given the previous data, the median number of steps is 0.</p>
 </div>
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
@@ -441,6 +441,7 @@ print(avgSteps)</code></pre>
 <pre class="r"><code>### Calculate interval on average which has maximum number of steps
 dfSummary2$interval[dfSummary2$mean == max(dfSummary2$mean)]</code></pre>
 <pre><code>## [1] 835</code></pre>
+<p>It is the 835th interval.</p>
 </div>
 </div>
 <div id="imputing-missing-values" class="section level2">
@@ -449,6 +450,7 @@ dfSummary2$interval[dfSummary2$mean == max(dfSummary2$mean)]</code></pre>
 <h3>1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)</h3>
 <pre class="r"><code>sum(!complete.cases(df))</code></pre>
 <pre><code>## [1] 2304</code></pre>
+<p>There are 2304 rows missing.</p>
 </div>
 <div id="devise-a-strategy-for-filling-in-all-of-the-missing-values-in-the-dataset.-the-strategy-does-not-need-to-be-sophisticated.-for-example-you-could-use-the-meanmedian-for-that-day-or-the-mean-for-that-5-minute-interval-etc" class="section level3">
 <h3>2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc</h3>
