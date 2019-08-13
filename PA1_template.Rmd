@@ -27,14 +27,14 @@ dfGrouped <- group_by(df, date)
 ### 1. Calculate the total number of steps taken per day
 ```{r}
 ### Create summary dataset
-dfSummary <- summarize(dfGrouped, total.steps = sum(steps, na.rm = TRUE))
+dfSummary <- summarize(dfGrouped, total.steps = sum(steps))
 head(dfSummary)
 ```
 
 The first first rows of the calculation are given above.  
 
 ### 2. Make a histogram of the total number of steps taken each day
-```{r}
+```{r, message = FALSE, warning = FALSE}
 histSteps <- ggplot(data = dfSummary, aes(total.steps)) + 
         geom_histogram(fill = "lightblue", binwidth = 1000) +
         labs(x = "Total Steps", y = "Days Recorded", title = "Total Steps by Frequency") + 
@@ -51,7 +51,7 @@ meanmed <- summarize(dfSummary, mean = mean(total.steps, na.rm = TRUE), median =
 print(meanmed)
 ```
 
-The mean number of steps is 9354. The median is 10395
+The mean number of steps is 10766. The median is 10765.
 
 ## What is the average daily activity pattern?  
 ### 1. Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
@@ -97,8 +97,7 @@ The strategy I've chosen is to impute the data with the median of each interval.
 
 ```{r}
 ### Imputing data with median of interval
-dfImputed <- mutate(dfGrouped2, steps = replace(steps, is.na(steps), median(steps, 
-        na.rm = TRUE)))
+dfImputed <- mutate(dfGrouped2, steps = replace(steps, is.na(steps), median(steps, na.rm = TRUE)))
 dfImputedSum <- dfImputed %>% ungroup() %>% group_by(date) %>% summarize(total.steps = 
         sum(steps, na.rm = TRUE))
 head(dfImputedSum)
@@ -129,7 +128,7 @@ meanmedOvr <- bind_cols(Type = c("As-is", "Imputed"), bind_rows(meanmed, meanmed
 print(meanmedOvr)
 ```
 
-Yes, substituting missing values with the median yields a new mean of 9504. Median stays the same.
+Yes, substituting missing values with the median yields a new mean of 9504. Median goes down to 10395.
 
 ## Are there differences in activity patterns between weekdays and weekends?  
 
