@@ -29,7 +29,7 @@ dfGrouped <- group_by(df, date)
 
 ```r
 ### Create summary dataset
-dfSummary <- summarize(dfGrouped, total.steps = sum(steps, na.rm = TRUE))
+dfSummary <- summarize(dfGrouped, total.steps = sum(steps))
 head(dfSummary)
 ```
 
@@ -37,7 +37,7 @@ head(dfSummary)
 ## # A tibble: 6 x 2
 ##   date       total.steps
 ##   <fct>            <int>
-## 1 2012-10-01           0
+## 1 2012-10-01          NA
 ## 2 2012-10-02         126
 ## 3 2012-10-03       11352
 ## 4 2012-10-04       12116
@@ -71,12 +71,12 @@ print(meanmed)
 
 ```
 ## # A tibble: 1 x 2
-##    mean median
-##   <dbl>  <int>
-## 1 9354.  10395
+##     mean median
+##    <dbl>  <int>
+## 1 10766.  10765
 ```
 
-The mean number of steps is 9354. The median is 10395
+The mean number of steps is 10766. The median is 10765.
 
 ## What is the average daily activity pattern?  
 ### 1. Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
@@ -136,8 +136,7 @@ The strategy I've chosen is to impute the data with the median of each interval.
 
 ```r
 ### Imputing data with median of interval
-dfImputed <- mutate(dfGrouped2, steps = replace(steps, is.na(steps), median(steps, 
-        na.rm = TRUE)))
+dfImputed <- mutate(dfGrouped2, steps = replace(steps, is.na(steps), median(steps, na.rm = TRUE)))
 dfImputedSum <- dfImputed %>% ungroup() %>% group_by(date) %>% summarize(total.steps = 
         sum(steps, na.rm = TRUE))
 head(dfImputedSum)
@@ -186,13 +185,13 @@ print(meanmedOvr)
 
 ```
 ## # A tibble: 2 x 3
-##   Type     mean median
-##   <chr>   <dbl>  <int>
-## 1 As-is   9354.  10395
-## 2 Imputed 9504.  10395
+##   Type      mean median
+##   <chr>    <dbl>  <int>
+## 1 As-is   10766.  10765
+## 2 Imputed  9504.  10395
 ```
 
-Yes, substituting missing values with the median yields a new mean of 9504. Median stays the same.
+Yes, substituting missing values with the median yields a new mean of 9504. Median goes down to 10395.
 
 ## Are there differences in activity patterns between weekdays and weekends?  
 
