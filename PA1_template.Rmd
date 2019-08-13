@@ -47,11 +47,11 @@ The first bin (0 to 1000 steps) has the highest frequency of total steps.
 ### 3. Calculate and report the mean and median of the total number of steps taken per day
 ```{r}
 ### Mean and median total steps per day
-meanmed <- summarize(df, mean = mean(steps, na.rm = TRUE), median = median(steps, na.rm = TRUE))
+meanmed <- summarize(dfSummary, mean = mean(total.steps, na.rm = TRUE), median = median(total.steps, na.rm = TRUE))
 print(meanmed)
 ```
 
-The mean number of steps is 37.38. Unsurprisingly, given the previous data, the median number of steps is 0.
+The mean number of steps is 9354. The median is 10395
 
 ## What is the average daily activity pattern?  
 ### 1. Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
@@ -122,14 +122,14 @@ print(histStepsImp)
 Next, find the median and mean of the total steps taken per day.
 ```{r}
 ### Mean and median total steps per day (Imputed)
-meanmedImp <- summarize(ungroup(dfImputed), mean = mean(steps, na.rm = TRUE), median = median(steps, na.rm = TRUE))
+meanmedImp <- summarize(ungroup(dfImputedSum), mean = mean(total.steps, na.rm = TRUE), median = median(total.steps, na.rm = TRUE))
 
 ### Compare mean and median against imputed and as-is dataset
 meanmedOvr <- bind_cols(Type = c("As-is", "Imputed"), bind_rows(meanmed, meanmedImp))
 print(meanmedOvr)
 ```
 
-Yes, substituting missing values with the median of 0 unsuprisingly reduces the mean of the dataset. Median stays at 0.  
+Yes, substituting missing values with the median yields a new mean of 9504. Median stays the same.
 
 ## Are there differences in activity patterns between weekdays and weekends?  
 
